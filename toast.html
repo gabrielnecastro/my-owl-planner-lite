@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; media-src 'self'" />
+  <title>My Owl Planner Lite</title>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="toast.css" />
+</head>
+<body class="from-bottom">
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <img src="icon.png" alt="" class="owl" />
+    <div class="text">
+      <strong id="title"></strong>
+      <span id="body"></span>
+      <em id="msg"></em>
+    </div>
+    <button id="close" aria-label="×">×</button>
+    <i class="timer"><b id="timerFill"></b></i>
+  </div>
+  <audio id="hoot" src="owl.wav" preload="auto"></audio>
+  <script src="toast.js"></script>
+</body>
+</html>

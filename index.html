@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:" />
+  <title>My Owl Planner Lite</title>
+  <link rel="icon" href="icon.png" />
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ======= Barra (recolhido) ======= -->
+  <div id="line" class="line hidden" title="">
+    <div id="lineFill" class="line-fill"></div>
+  </div>
+
+  <!-- ======= Painel ======= -->
+  <div id="panel">
+    <header>
+      <img class="logo" src="icon.png" alt="" />
+      <h1 data-i18n="app.tasks">Tarefas</h1>
+      <span id="counter" class="counter"></span>
+      <button id="btnReminder" class="icon"></button>
+      <button id="btnDash" class="icon" data-i18n-title="hdr.dashboard">📊</button>
+      <button id="btnCategories" class="icon" data-i18n-title="hdr.categories">🏷</button>
+      <button id="btnSettings" class="icon" data-i18n-title="hdr.settings"></button>
+      <button id="btnMode" class="icon"></button>
+    </header>
+
+    <form id="newTask" class="new-task">
+      <input id="fTitle" data-i18n-ph="new.placeholder" required maxlength="120" autocomplete="off" />
+      <div class="row">
+        <select id="fCategory" data-i18n-title="new.category"></select>
+        <input id="fEstimate" value="30min" data-i18n-title="new.estimateTitle" autocomplete="off" />
+      </div>
+      <div class="row">
+        <select id="fWhen" data-i18n-title="new.when">
+          <option value="now" data-i18n="when.now"></option>
+          <option value="later" selected data-i18n="when.later"></option>
+          <option value="day" data-i18n="when.day"></option>
+          <option value="schedule" data-i18n="when.schedule"></option>
+        </select>
+        <button type="submit" class="primary" data-i18n-title="common.add">+</button>
+      </div>
+      <input id="fDay" type="date" class="hidden" />
+      <input id="fSchedule" type="datetime-local" class="hidden" />
+    </form>
+
+    <ul id="list" class="list"></ul>
+
+    <details id="doneBox" class="done-box">
+      <summary><span data-i18n="done.summary"></span> (<span id="doneCount">0</span>)</summary>
+      <ul id="doneList" class="list done"></ul>
+      <button id="btnClearDone" class="link" data-i18n="done.archive" data-i18n-title="done.archiveTitle"></button>
+    </details>
+  </div>
+
+  <!-- ======= Categorias ======= -->
+  <dialog id="catDialog">
+    <h2 data-i18n="catdlg.title"></h2>
+    <ul id="catList" class="cat-list"></ul>
+    <form id="catForm" class="row">
+      <input id="cName" data-i18n-ph="catdlg.name" required maxlength="30" />
+      <input id="cColor" type="color" value="#b5a3dc" />
+      <button type="submit" class="primary" data-i18n-title="common.add">+</button>
+    </form>
+    <div class="dialog-actions"><button id="catClose" data-i18n="common.close"></button></div>
+  </dialog>
+
+  <!-- ======= Editar ======= -->
+  <dialog id="editDialog">
+    <h2 data-i18n="edit.title"></h2>
+    <form id="editForm" class="stack">
+      <label><span data-i18n="edit.taskTitle"></span> <input id="eTitle" required maxlength="120" /></label>
+      <label><span data-i18n="edit.category"></span> <select id="eCategory"></select></label>
+      <label><span data-i18n="edit.estimate"></span> <input id="eEstimate" required data-i18n-ph="edit.estimatePh" /></label>
+      <div class="row two">
+        <label><span data-i18n="edit.day"></span> <input id="eDay" type="date" /></label>
+        <label><span><span data-i18n="edit.time"></span> <small data-i18n="common.optional"></small></span> <input id="eTime" type="time" /></label>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" id="eDelete" class="danger" data-i18n="common.delete"></button>
+        <span class="spacer"></span>
+        <button type="button" id="eCancel" data-i18n="common.cancel"></button>
+        <button type="submit" class="primary" data-i18n="common.save"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ======= Pausar ======= -->
+  <dialog id="pauseDialog">
+    <h2 id="pauseTitle"></h2>
+    <p id="pauseSummary" class="summary"></p>
+    <form id="pauseForm" class="stack">
+      <fieldset class="chips">
+        <legend data-i18n="pause.why"></legend>
+        <label><input type="radio" name="pauseReason" value="break" checked /><span data-i18n="pz.break"></span></label>
+        <label><input type="radio" name="pauseReason" value="other_tasks" /><span data-i18n="pz.other_tasks"></span></label>
+        <label><input type="radio" name="pauseReason" value="unexpected" /><span data-i18n="pz.unexpected"></span></label>
+        <label><input type="radio" name="pauseReason" value="procrastination" /><span data-i18n="pz.procrastination"></span></label>
+        <label><input type="radio" name="pauseReason" value="other" /><span data-i18n="pz.other"></span></label>
+      </fieldset>
+      <input id="pauseDesc" data-i18n-ph="pause.detail" maxlength="120" />
+
+      <fieldset class="options">
+        <legend data-i18n="pause.next"></legend>
+        <label class="check"><input type="radio" name="pauseNext" value="keep" checked /> <span data-i18n="pause.keep"></span></label>
+        <label class="check"><input type="radio" name="pauseNext" value="time" /> <span data-i18n="pause.time"></span></label>
+        <input id="pauseTime" type="datetime-local" class="hidden" />
+        <label class="check"><input type="radio" name="pauseNext" value="day" /> <span data-i18n="pause.day"></span></label>
+        <input id="pauseDay" type="date" class="hidden" />
+      </fieldset>
+
+      <div class="dialog-actions">
+        <button type="button" id="pauseCancel" data-i18n="common.cancel"></button>
+        <button type="submit" class="primary" data-i18n="pause.btn"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ======= Humor ao começar ======= -->
+  <dialog id="moodDialog" class="mood-dialog">
+    <h2 data-i18n="mood.before.title"></h2>
+    <p id="moodTask" class="summary"></p>
+    <div class="moods" id="moodPick"></div>
+    <div class="dialog-actions">
+      <button type="button" id="moodCancel" data-i18n="common.cancel"></button>
+      <span class="spacer"></span>
+      <button type="button" id="moodSkip" data-i18n="mood.skip"></button>
+    </div>
+  </dialog>
+
+  <!-- ======= Finalizar ======= -->
+  <dialog id="finishDialog">
+    <h2 id="finTitle"></h2>
+    <p id="finSummary" class="summary"></p>
+    <form id="finishForm" class="stack">
+      <div class="seg">
+        <label><input type="radio" name="outcome" value="done" checked /><span data-i18n="fin.done"></span></label>
+        <label><input type="radio" name="outcome" value="not_done" /><span data-i18n="fin.notDone"></span></label>
+      </div>
+
+      <fieldset class="reasons">
+        <legend><span data-i18n="fin.what"></span> <small data-i18n="common.optional"></small></legend>
+        <div class="reason" data-type="other_tasks">
+          <label class="check"><input type="checkbox" /> <span data-i18n="fin.r.other_tasks"></span></label>
+          <input class="min" type="number" min="0" placeholder="min" />
+        </div>
+        <div class="reason" data-type="procrastination">
+          <label class="check"><input type="checkbox" /> <span data-i18n="fin.r.procrastination"></span></label>
+          <input class="min" type="number" min="0" placeholder="min" />
+        </div>
+        <div class="reason" data-type="unexpected">
+          <label class="check"><input type="checkbox" /> <span data-i18n="fin.r.unexpected"></span></label>
+          <input class="min" type="number" min="0" placeholder="min" />
+          <input class="desc" data-i18n-ph="fin.which" maxlength="120" />
+        </div>
+        <div class="reason" data-type="other">
+          <label class="check"><input type="checkbox" /> <span data-i18n="fin.r.other"></span></label>
+          <input class="min" type="number" min="0" placeholder="min" />
+          <input class="desc" data-i18n-ph="fin.which" maxlength="120" />
+        </div>
+      </fieldset>
+
+      <fieldset class="mood-box" id="finMoodBox">
+        <legend data-i18n="fin.moodTitle"></legend>
+        <div class="mood-row"><span data-i18n="fin.moodBefore"></span><div class="moods small" data-mood="before"></div></div>
+        <div class="mood-row"><span data-i18n="fin.moodAfter"></span><div class="moods small" data-mood="after"></div></div>
+      </fieldset>
+
+      <label><span data-i18n="fin.note"></span> <textarea id="finNote" rows="2" maxlength="500"></textarea></label>
+
+      <div class="dialog-actions">
+        <button type="button" id="finReopen" class="hidden" data-i18n="fin.reopen"></button>
+        <span class="spacer"></span>
+        <button type="button" id="finCancel" data-i18n="common.cancel"></button>
+        <button type="submit" class="primary" data-i18n="common.save"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="i18n.js"></script>
+  <script src="messages.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

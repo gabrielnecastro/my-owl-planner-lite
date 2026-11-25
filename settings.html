@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'" />
+  <title>My Owl Planner Lite</title>
+  <link rel="icon" href="icon.png" />
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <header class="top">
+    <img src="icon.png" alt="" />
+    <h1 data-i18n="set.title"></h1>
+    <span id="saved" class="saved" data-i18n="set.saved"></span>
+  </header>
+
+  <main>
+    <!-- ================= Geral ================= -->
+    <section id="secGeneral">
+      <h2 data-i18n="set.sec.general"></h2>
+      <div class="field">
+        <div class="label"><span data-i18n="set.lang"></span><small data-i18n="set.lang.hint"></small></div>
+        <div class="seg" id="lang">
+          <button data-v="pt">Português</button>
+          <button data-v="en">English</button>
+          <button data-v="es">Español</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.theme"></span><small data-i18n="set.theme.hint"></small></div>
+        <div class="seg" id="theme">
+          <button data-v="light" data-i18n="set.theme.light"></button>
+          <button data-v="dark" data-i18n="set.theme.dark"></button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.startup"></span><small id="startupHint" data-i18n="set.startup.hint"></small></div>
+        <label class="switch"><input type="checkbox" id="startup" /><i></i></label>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.askMood"></span><small data-i18n="set.askMood.hint"></small></div>
+        <label class="switch"><input type="checkbox" id="askMood" /><i></i></label>
+      </div>
+    </section>
+
+    <!-- ================= Barra e painel ================= -->
+    <section id="secBar">
+      <h2 data-i18n="set.sec.bar"></h2>
+      <div class="field col">
+        <div class="label"><span data-i18n="set.barPos"></span><small data-i18n="set.barPos.hint"></small></div>
+        <div class="positions" id="barPos">
+          <button data-v="top"><span class="screen"><i class="bar b-top"></i></span><span data-i18n="set.pos.top"></span></button>
+          <button data-v="bottom"><span class="screen"><i class="bar b-bottom"></i></span><span data-i18n="set.pos.bottom"></span></button>
+          <button data-v="left"><span class="screen"><i class="bar b-left"></i></span><span data-i18n="set.pos.left"></span></button>
+          <button data-v="right"><span class="screen"><i class="bar b-right"></i></span><span data-i18n="set.pos.right"></span></button>
+        </div>
+      </div>
+      <div class="field col">
+        <div class="label"><span data-i18n="set.barVis"></span><small data-i18n="set.barVis.hint"></small></div>
+        <div class="seg" id="barVisibility">
+          <button data-v="peek" data-i18n="set.barVis.peek"></button>
+          <button data-v="always" data-i18n="set.barVis.always"></button>
+        </div>
+      </div>
+      <div class="field" id="peekField">
+        <div class="label"><span data-i18n="set.peekEvery"></span><small data-i18n="set.peekEvery.hint"></small></div>
+        <div class="seg" id="peekEvery">
+          <button data-v="1">1 min</button>
+          <button data-v="2">2 min</button>
+          <button data-v="3">3 min</button>
+          <button data-v="4">4 min</button>
+          <button data-v="5">5 min</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.barSize"></span></div>
+        <div class="seg" id="lineSize">
+          <button data-v="thin" data-i18n="set.size.thin"></button>
+          <button data-v="medium" data-i18n="set.size.medium"></button>
+          <button data-v="thick" data-i18n="set.size.thick"></button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.panelSide"></span><small id="panelSideHint"></small></div>
+        <div class="seg" id="side">
+          <button data-v="left" data-i18n="set.side.left"></button>
+          <button data-v="right" data-i18n="set.side.right"></button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.hoverOpen"></span><small data-i18n="set.hoverOpen.hint"></small></div>
+        <label class="switch"><input type="checkbox" id="hoverOpen" /><i></i></label>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.startCollapsed"></span><small data-i18n="set.startCollapsed.hint"></small></div>
+        <label class="switch"><input type="checkbox" id="startCollapsed" /><i></i></label>
+      </div>
+    </section>
+
+    <!-- ================= Notificações ================= -->
+    <section id="secNotify">
+      <h2 data-i18n="set.sec.notif"></h2>
+      <div class="field col">
+        <div class="label"><span data-i18n="set.reminder"></span><small data-i18n="set.reminder.hint"></small></div>
+        <div class="seg wrap" id="reminderMin">
+          <button data-v="0" data-i18n="rem.offLabel"></button>
+          <button data-v="5">5 min</button>
+          <button data-v="10">10 min</button>
+          <button data-v="15">15 min</button>
+          <button data-v="20">20 min</button>
+          <button data-v="30">30 min</button>
+          <button data-v="60">60 min</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.notifyOverdue"></span></div>
+        <label class="switch"><input type="checkbox" id="notifyOverdue" /><i></i></label>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.notifySchedule"></span></div>
+        <label class="switch"><input type="checkbox" id="notifySchedule" /><i></i></label>
+      </div>
+      <div class="field col">
+        <div class="label"><span data-i18n="set.msgTone"></span><small data-i18n="set.msgTone.hint"></small></div>
+        <div class="seg" id="msgTone">
+          <button data-v="all" data-i18n="set.msgTone.all"></button>
+          <button data-v="motivating" data-i18n="set.msgTone.motivating"></button>
+          <button data-v="fun" data-i18n="set.msgTone.fun"></button>
+          <button data-v="off" data-i18n="set.msgTone.off"></button>
+        </div>
+      </div>
+      <div class="field col">
+        <div class="label"><span data-i18n="set.customMsg"></span><small data-i18n-html="set.customMsg.hint"></small></div>
+        <textarea id="customMessages" rows="4" spellcheck="true" data-i18n-ph="set.customMsg.ph"></textarea>
+        <small id="customCount" class="count"></small>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.sound"></span><small data-i18n="set.sound.hint"></small></div>
+        <label class="switch"><input type="checkbox" id="sound" /><i></i></label>
+      </div>
+      <div class="actions"><button id="test" class="ghost" data-i18n="set.test"></button></div>
+    </section>
+
+    <!-- ================= Dados ================= -->
+    <section id="secData">
+      <h2 data-i18n="set.sec.data"></h2>
+      <p class="note"><span data-i18n="set.data.where"></span> <span data-i18n="set.data.lastBackup"></span></p>
+      <div class="actions">
+        <button class="ghost" data-action="backup" data-i18n="set.data.backup"></button>
+        <button class="ghost" data-action="folder" data-i18n="set.data.folder"></button>
+        <button class="ghost" data-action="json" data-i18n="set.data.json"></button>
+      </div>
+    </section>
+
+    <!-- ================= Sobre ================= -->
+    <section id="secAbout" class="about">
+      <h2 data-i18n="set.sec.about"></h2>
+      <div class="brand">
+        <img src="icon.png" alt="" />
+        <div>
+          <strong>My Owl Planner Lite</strong> <span id="demoBadge" class="demo-badge hidden"></span>
+          <small id="version"></small>
+          <small id="storage"></small>
+        </div>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.update"></span><small id="updStatus"></small></div>
+        <button id="btnUpdate" class="ghost" data-action="update" data-i18n="set.update.btn"></button>
+      </div>
+      <div class="field">
+        <div class="label"><span data-i18n="set.update.auto"></span><small data-i18n="set.update.autoHint"></small></div>
+        <label class="switch"><input type="checkbox" id="updateCheck" /><i></i></label>
+      </div>
+      <div class="field col">
+        <div class="label"><span data-i18n="set.help"></span><small data-i18n="set.help.hint"></small></div>
+        <div class="btn-row">
+          <button class="ghost" data-action="bug" data-i18n="set.help.bug"></button>
+          <button class="ghost" data-action="message" data-i18n="set.help.message"></button>
+        </div>
+      </div>
+      <div class="field col">
+        <div class="label"><span data-i18n="set.follow"></span></div>
+        <div class="links">
+          <button class="link" data-link="instagram">Instagram</button>
+          <button class="link" data-link="linkedinPage">LinkedIn</button>
+          <button class="link" data-link="site">myowlplanner.com</button>
+        </div>
+      </div>
+      <div class="field col">
+        <div class="maker">
+          <img src="gabriel.png" alt="Gabriel Castro" />
+          <div class="label"><span data-i18n="set.maker"></span><strong>Gabriel Castro</strong><small data-i18n="set.maker.hint"></small></div>
+        </div>
+        <div class="links">
+          <button class="link" data-link="makerLinkedin">LinkedIn</button>
+          <button class="link" data-link="makerGithub">GitHub</button>
+          <button class="link" data-link="makerSite">gabrielcastro.net</button>
+          <button class="link" data-link="makerEmail">gabriel@gabrielcastro.net</button>
+        </div>
+      </div>
+      <div id="demoBox" class="demo-box">
+        <p class="note" data-i18n="set.about.demo"></p>
+        <button class="ghost" data-action="demo" data-i18n="set.about.demoBtn"></button>
+      </div>
+    </section>
+  </main>
+
+  <script src="i18n.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

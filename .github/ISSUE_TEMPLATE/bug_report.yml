@@ -1,0 +1,67 @@
+name: 🐞 Bug report / Reportar um bug
+description: Something isn't working as expected. / Algo não funciona como deveria.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report it! / Obrigado por reportar!
+        Tip: **Settings → About → Report a bug** fills in the version fields for you.
+        Dica: **Configurações → Sobre → Reportar um bug** já preenche as versões.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened? / O que aconteceu?
+      description: Describe the problem. / Descreva o problema.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / Passos para reproduzir
+      placeholder: |
+        1. Create a task with 30min
+        2. Press play and collapse the panel
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior / O que deveria acontecer
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version / Versão do app
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Windows version / Versão do Windows
+      placeholder: "Windows 11"
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installed or portable? / Instalado ou portátil?
+      options:
+        - Installer / Instalador
+        - Portable / Portátil
+        - From source / Pelo código (npm start)
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often? / Com que frequência?
+      options:
+        - Always / Sempre
+        - Sometimes / Às vezes
+        - Happened once / Aconteceu uma vez
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or extra info / Prints ou informações extras
+      description: You can paste images here. / Dá para colar imagens aqui.

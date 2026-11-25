@@ -1,0 +1,16 @@
+name: 💡 Idea / Sugestão
+description: Suggest an improvement or a new feature. / Sugira uma melhoria ou um recurso novo.
+title: "[Idea] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do? / O que você gostaria de fazer?
+      description: Tell us the situation or problem behind the idea. / Conte a situação ou o problema por trás da ideia.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How do you imagine it? / Como você imagina?

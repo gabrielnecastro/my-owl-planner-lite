@@ -1,0 +1,79 @@
+{
+  "name": "my-owl-planner-lite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Desktop task widget for Windows with time estimates, an always-on-top progress bar and a performance dashboard (Electron + SQLite).",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
+    "start": "electron .",
+    "demo": "electron . --demo",
+    "dist": "electron-builder --win --publish never"
+  },
+  "author": "Gabriel Castro",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "net.gabrielcastro.myowlplannerlite",
+    "productName": "My Owl Planner Lite",
+    "copyright": "Copyright © 2026 Gabriel Castro",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "*.js",
+      "*.html",
+      "*.css",
+      "icon.ico",
+      "icon.png",
+      "tray.png",
+      "owl.wav",
+      "gabriel.png",
+      "package.json"
+    ],
+    "win": {
+      "icon": "icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "My Owl Planner Lite",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "My-Owl-Planner-Lite-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "My-Owl-Planner-Lite-${version}-portable.${ext}"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "gabrielnecastro",
+        "repo": "my-owl-planner-lite"
+      }
+    ]
+  }
+}

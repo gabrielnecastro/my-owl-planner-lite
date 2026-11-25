@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:" />
+  <title>My Owl Planner Lite</title>
+  <link rel="icon" href="icon.png" />
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><img src="icon.png" alt="" /><span data-i18n="dash.brand"></span></div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="day" class="active" data-i18n="dash.tab.day"></button>
+      <button role="tab" data-tab="range" data-i18n="dash.tab.range"></button>
+    </nav>
+
+    <div class="controls" id="dayControls">
+      <button id="dayPrev" class="ghost" data-i18n-title="dash.prevDay">◀</button>
+      <input id="dayPick" type="date" />
+      <button id="dayNext" class="ghost" data-i18n-title="dash.nextDay">▶</button>
+      <button id="dayToday" class="ghost" data-i18n="dash.today"></button>
+    </div>
+
+    <div class="controls hidden" id="rangeControls">
+      <div class="seg" id="unitSeg">
+        <button data-unit="week" data-i18n="dash.unit.week"></button>
+        <button data-unit="month" data-i18n="dash.unit.month"></button>
+        <button data-unit="year" data-i18n="dash.unit.year"></button>
+        <button data-unit="custom" data-i18n="dash.unit.custom"></button>
+      </div>
+      <span id="stepNav" class="nav">
+        <button id="rangePrev" class="ghost" data-i18n-title="dash.prev">◀</button>
+        <span id="rangeLabel" class="range-label"></span>
+        <button id="rangeNext" class="ghost" data-i18n-title="dash.next">▶</button>
+        <button id="rangeToday" class="ghost" data-i18n="dash.current"></button>
+      </span>
+      <span id="customNav" class="nav hidden">
+        <label class="lbl"><span data-i18n="dash.from"></span> <input id="fromPick" type="date" /></label>
+        <label class="lbl"><span data-i18n="dash.to"></span> <input id="toPick" type="date" /></label>
+        <select id="preset" data-i18n-title="dash.presets">
+          <option value="" data-i18n="dash.presets"></option>
+          <option value="7" data-i18n="dash.p7"></option>
+          <option value="30" data-i18n="dash.p30"></option>
+          <option value="90" data-i18n="dash.p90"></option>
+          <option value="ytd" data-i18n="dash.pytd"></option>
+          <option value="365" data-i18n="dash.p365"></option>
+          <option value="all" data-i18n="dash.pall"></option>
+        </select>
+      </span>
+    </div>
+  </header>
+
+  <main id="view"></main>
+
+  <div id="tip" class="tip" role="tooltip"></div>
+
+  <script src="i18n.js"></script>
+  <script src="analytics.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

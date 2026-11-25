@@ -1,0 +1,101 @@
+/* Aviso que sai da barra de progresso — paleta da logo */
+:root {
+  --bg: #1d3350;
+  --line: #33496b;
+  --text: #f0f1e3;
+  --muted: #b9c4d2;
+  --accent: #a8c7a4;   /* lembrete / teste */
+  --over: #e08a6d;     /* tempo esgotado */
+  --due: #e8c07d;      /* hora de começar */
+  font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; }
+
+/* a janela encosta na barra; o cartão desliza para fora dela */
+body { display: flex; padding: 6px; }
+body.from-bottom { align-items: flex-end; }
+body.from-top { align-items: flex-start; }
+body.from-left, body.from-right { align-items: center; }
+body.from-right { justify-content: flex-end; }
+
+.toast {
+  --k: var(--accent);
+  position: relative; width: 100%;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+  padding: 10px 10px 12px 10px;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--line); border-left: 4px solid var(--k);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(5, 12, 22, .45);
+  cursor: pointer;
+  opacity: 0;
+  transition: transform .38s cubic-bezier(.2, .9, .25, 1.15), opacity .25s;
+}
+.toast.over { --k: var(--over); }
+.toast.due { --k: var(--due); }
+
+/* posição inicial: escondido "dentro" da barra */
+.from-bottom .toast { transform: translateY(115%); }
+.from-top .toast { transform: translateY(-115%); }
+.from-left .toast { transform: translateX(-115%); }
+.from-right .toast { transform: translateX(115%); }
+.toast.in { transform: none; opacity: 1; }
+.toast.out { transition: transform .28s ease-in, opacity .28s; opacity: 0; }
+
+.owl { width: 34px; height: 34px; border-radius: 9px; }
+.toast.in .owl { animation: hop .5s .25s ease-out; }
+@keyframes hop { 0% { transform: translateY(0); } 40% { transform: translateY(-4px) rotate(-4deg); } 100% { transform: none; } }
+
+.text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.text strong { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.text em {
+  font-style: normal; font-size: 12.5px; color: var(--text); line-height: 1.35; margin-top: 2px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.text em::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--k); margin: 0 6px 1px 0; vertical-align: middle; }
+.text span { color: var(--muted); font-size: 12px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+#close {
+  align-self: start; border: 0; background: transparent; color: var(--muted);
+  font-size: 18px; line-height: 1; padding: 0 4px; cursor: pointer; border-radius: 6px;
+}
+#close:hover { color: var(--text); background: rgba(255, 255, 255, .06); }
+
+/* tempo restante do aviso: uma mini barra, como a do app */
+.timer { position: absolute; left: 10px; right: 10px; bottom: 5px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .07); overflow: hidden; }
+.timer b { display: block; height: 100%; width: 100%; background: var(--k); transform-origin: left; }
+.toast.paused .timer b { opacity: .5; }
+
+
+/* tarefa concluída */
+.toast.done { --k: #8fd0b9; }
+
+/* versão nova do app */
+.toast.update { --k: #8fb3e0; }
+
+/* ---------- com frase ("Keep it up!"): a frase em destaque no topo, a tarefa embaixo ---------- */
+.toast.has-msg .text { gap: 3px; }
+.toast.has-msg .text em {
+  order: -1; margin: 0 0 2px; font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--text);
+}
+.toast.has-msg .text em::before { display: none; }
+.toast.has-msg .text strong { font-size: 12.5px; font-weight: 500; color: var(--text); opacity: .9; }
+.toast.has-msg .text span { font-size: 11.5px; -webkit-line-clamp: 1; }
+
+/* ================== Tema claro (padrão) ================== */
+html[data-theme="light"] {
+  --bg: #fffbf2;
+  --line: #e0d3b8;
+  --text: #1d3150;
+  --muted: #5d6f86;
+  --accent: #6f9e6b;
+  --over: #c8664a;
+  --due: #b8862f;
+}
+html[data-theme="light"] .toast { box-shadow: 0 6px 22px rgba(29, 49, 80, .2); }
+html[data-theme="light"] #close:hover { background: rgba(29, 49, 80, .06); }
+html[data-theme="light"] .timer { background: rgba(29, 49, 80, .08); }
+html[data-theme="light"] .toast.done { --k: #3f9a7d; }
+html[data-theme="light"] .toast.update { --k: #4f7fc0; }
